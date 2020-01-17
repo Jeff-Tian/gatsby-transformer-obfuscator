@@ -15,7 +15,7 @@ const transformObject = (
   createContentDigest, createNode, createNodeId, node) => (
   obj, i) => {
   const id = getObjectId(createNodeId, node)(obj, i)
-  createNode(getObfuscatedNode(createContentDigest)(obj, id, 'obfuscated-text'))
+  createNode(getObfuscatedNode(createContentDigest)(obj, id, 'text'))
 }
 
 const getObjectId = (createNodeId, node) => (obj, i) => obj.id ?
