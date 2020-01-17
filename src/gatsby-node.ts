@@ -1,7 +1,9 @@
 export const getObfuscatedNode = createContentDigest => (obj, id, type) => ({
   ...obj,
+  content: [...obj.content].join('-'),
   id,
   internal: {
+    content: obj.content,
     type,
     contentDigest: createContentDigest(obj),
     mediaType: 'text/plain',
@@ -20,7 +22,7 @@ const getObjectId = (createNodeId, node) => (obj, i) => obj.id ?
   obj.id :
   createNodeId(`${node.id} [${i}] >>> obfuscated`)
 
-const onCreateNode = async (
+export const onCreateNode = async (
   { node, actions, loadNodeContent, createNodeId, createContentDigest }) => {
 
   if (node.internal.mediaType !== 'text/plain') {
@@ -32,5 +34,3 @@ const onCreateNode = async (
   transformObject(createContentDigest, actions.createNode, createNodeId,
     node)({ content }, 0)
 }
-
-exports.onCreateNode = onCreateNode
