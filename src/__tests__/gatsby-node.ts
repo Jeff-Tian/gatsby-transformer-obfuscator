@@ -48,5 +48,6 @@ test('creates node', async () => {
 
     expect(node.loaded).toBe(true)
     expect(nodes.length).toBe(1)
-    expect(Object.keys(nodes[0].content.data.response.html_entities).length).toBe(4)
+
+    expect(nodes[0].content.html.length).toBeGreaterThan(0)
 })
