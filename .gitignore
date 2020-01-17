@@ -1,1 +1,4 @@
 gatsby-node.js
+.idea
+node_modules
+public
