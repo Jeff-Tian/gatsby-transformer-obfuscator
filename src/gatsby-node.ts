@@ -6,7 +6,7 @@ const getObfuscatedNode = createContentDigest => (obj, id, type) => ({
     content: obj.content,
     type,
     contentDigest: createContentDigest(obj),
-    mediaType: 'text/plain',
+    mediaType: 'text/obfuscated',
     description: 'Obfuscated Content',
   },
 })
