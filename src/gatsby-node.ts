@@ -1,4 +1,4 @@
-export const getObfuscatedNode = createContentDigest => (obj, id, type) => ({
+const getObfuscatedNode = createContentDigest => (obj, id, type) => ({
   ...obj,
   content: [...obj.content].join('-'),
   id,
@@ -11,7 +11,7 @@ export const getObfuscatedNode = createContentDigest => (obj, id, type) => ({
   },
 })
 
-export const transformObject = (
+const transformObject = (
   createContentDigest, createNode, createNodeId, node) => (
   obj, i) => {
   const id = getObjectId(createNodeId, node)(obj, i)
