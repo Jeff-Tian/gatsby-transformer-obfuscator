@@ -6,7 +6,7 @@
     "font-obfuscator"
   ],
   "scripts": {
-    "build": "babel --extensions \".ts\" src --out-dir . --ignore **/__tests__",
+    "build": "babel --presets @babel/preset-typescript src/ --out-dir . --extensions \".ts\" --ignore **/__tests__",
     "prepare": "cross-env NODE_ENV=production npm run build",
     "watch": "babel -w src --out-dir . --ignore **/__tests__",
     "test": "jest",

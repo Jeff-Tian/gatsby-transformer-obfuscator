@@ -2,3 +2,4 @@ gatsby-node.js
 .idea
 node_modules
 public
+obfuscator.js
