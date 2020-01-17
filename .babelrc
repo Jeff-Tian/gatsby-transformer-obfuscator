@@ -1,8 +1,6 @@
 {
   "presets": [
     [
-      "babel-preset-gatsby-package",
-      "es2015",
       "@babel/preset-typescript"
     ]
   ]
