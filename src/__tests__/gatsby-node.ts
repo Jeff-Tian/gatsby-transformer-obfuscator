@@ -1,5 +1,51 @@
-const sum = (a: number, b: number): number => a + b
+import { onCreateNode } from '../gatsby-node'
+import R from 'ramda'
 
-test('add 1 + 2 to equal 3', () => {
-    expect(sum(1, 2)).toBe(3)
+test('Nothing happens to non `text/plain` node', () => {
+  const node = {
+    internal: {
+      mediaType: 'text/xml',
+    },
+    loaded: false,
+  }
+
+  onCreateNode({
+    node,
+    actions: {},
+    loadNodeContent: (node) => {
+      node.loaded = true
+    },
+    createNodeId: () => {
+    },
+    createContentDigest: () => {
+    },
+  })
+
+  expect(node.loaded).not.toBe(true)
+})
+
+test('creates node', async () => {
+  const node = {
+    internal: {
+      mediaType: 'text/plain',
+    },
+    loaded: false,
+  }
+  const nodes = []
+
+  await onCreateNode({
+    node,
+    actions: { createNode: R.compose(nodes.push.bind(nodes), R.tap(console.log)) },
+    loadNodeContent: async (node) => {
+      node.loaded = true
+
+      return 'abcd'
+    },
+    createNodeId: () => 1234,
+    createContentDigest: () => 'abcd',
+  })
+
+  expect(node.loaded).toBe(true)
+  expect(nodes.length).toBe(1)
+  expect(nodes[0].content).toBe('a-b-c-d')
 })
