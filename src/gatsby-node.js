@@ -1,34 +1,36 @@
+export const getObfuscatedNode = createContentDigest => (obj, id, type) => ({
+  ...obj,
+  id,
+  internal: {
+    type,
+    contentDigest: createContentDigest(obj),
+    mediaType: 'text/plain',
+    description: 'Obfuscated Content',
+  },
+})
+
+export const transformObject = (
+  createContentDigest, createNode, createNodeId, node) => (
+  obj, i) => {
+  const id = getObjectId(createNodeId, node)(obj, i)
+  createNode(getObfuscatedNode(createContentDigest)(obj, id, 'obfuscated-text'))
+}
+
+const getObjectId = (createNodeId, node) => (obj, i) => obj.id ?
+  obj.id :
+  createNodeId(`${node.id} [${i}] >>> obfuscated`)
+
 const onCreateNode = async (
-    { node, actions, loadNodeContent, createNodeId, createContentDigest }) => {
-  const transformObject = (obj, id, type) => {
-    const obfuscatedNode = {
-      ...obj,
-      id,
-      internal: {
-        type,
-        contentDigest: createContentDigest(obj),
-        mediaType: 'text/plain',
-        description: 'Obfuscated Content',
-      },
-    }
-
-    createNode(obfuscatedNode)
-  }
-
-  const { createNode, createParentChildLink } = actions
+  { node, actions, loadNodeContent, createNodeId, createContentDigest }) => {
 
   if (node.internal.mediaType !== 'text/plain') {
     return
   }
 
   const content = await loadNodeContent(node)
-  const parsedContent = [{ content: content + 'tweets' }]
 
-  parsedContent.forEach((obj, i) => {
-    transformObject(obj,
-        obj.id ? obj.id : createNodeId(`${node.id} [${i}] >>> obfuscated`),
-        'obfuscated')
-  })
+  transformObject(createContentDigest, actions.createNode, createNodeId,
+    node)({ content }, 0)
 }
 
 exports.onCreateNode = onCreateNode
