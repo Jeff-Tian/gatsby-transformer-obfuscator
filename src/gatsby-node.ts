@@ -27,7 +27,7 @@ const getObjectId = (createNodeId, node) => (obj, i) => obj.id ?
 export const onCreateNode = async (
     {node, actions, loadNodeContent, createNodeId, createContentDigest}) => {
 
-    if (node.internal.mediaType !== 'text/plain') {
+    if (node.internal.mediaType !== 'text/obfuscated') {
         return
     }
 
