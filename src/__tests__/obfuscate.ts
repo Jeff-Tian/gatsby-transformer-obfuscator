@@ -1,4 +1,4 @@
-import {obfuscate} from "../obfuscator"
+import { obfuscate } from "../obfuscator"
 
 jest.setTimeout(20000)
 test('obfuscate', async () => {
@@ -7,4 +7,5 @@ test('obfuscate', async () => {
     const res: any = await obfuscate(plainText)
 
     expect(res.html.length).toBeGreaterThan(0)
+    expect(Object.keys(res.fonts).length).toEqual(3)
 })
