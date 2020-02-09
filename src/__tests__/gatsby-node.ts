@@ -1,4 +1,4 @@
-import {onCreateNode} from '../gatsby-node'
+import { onCreateNode } from '../gatsby-node'
 import R from 'ramda'
 
 jest.setTimeout(30000)
@@ -28,7 +28,7 @@ test('Nothing happens to non `text/plain` node', () => {
 test('creates node', async () => {
     const node = {
         internal: {
-            mediaType: 'text/plain',
+            mediaType: 'text/obfuscated',
         },
         loaded: false,
     }
@@ -36,7 +36,7 @@ test('creates node', async () => {
 
     await onCreateNode({
         node,
-        actions: {createNode: R.compose(nodes.push.bind(nodes), R.tap(console.log))},
+        actions: { createNode: R.compose(nodes.push.bind(nodes), R.tap(console.log)) },
         loadNodeContent: async (node) => {
             node.loaded = true
 
@@ -46,6 +46,7 @@ test('creates node', async () => {
         createContentDigest: () => 'abcd',
     })
 
+    console.log('node = ', node);
     expect(node.loaded).toBe(true)
     expect(nodes.length).toBe(1)
 
