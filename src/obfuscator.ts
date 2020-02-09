@@ -13,6 +13,7 @@ export const obfuscate = async (plainText: string) => {
 
     if (res.data.message === 'success') {
         return {
+            plainText,
             html: [...plainText].map(t => res.data.response.html_entities[t]).join(''),
             fonts: res.data.response.base64ed
         }

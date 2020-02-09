@@ -28,7 +28,7 @@ test('Nothing happens to non `text/plain` node', () => {
 test('creates node', async () => {
     const node = {
         internal: {
-            mediaType: 'text/obfuscated',
+            mediaType: 'text/plain',
         },
         loaded: false,
     }
