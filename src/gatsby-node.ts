@@ -9,7 +9,6 @@ const getObfuscatedNode = createContentDigest => async (obj, id, type) => {
         id,
         internal: {
             content: obj.content,
-            obfuscatedContent: obfuscatedContent,
             type,
             contentDigest: createContentDigest(obj),
             mediaType: 'text/obfuscated',

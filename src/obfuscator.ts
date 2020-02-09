@@ -7,7 +7,7 @@ const request = async (plainText: string) => axios.post('https://font-obfuscator
 })
 
 export const obfuscate = async (plainText: string) => {
-    const res: any = await request(plainText)
+    const res: any = await request(plainText.replace(/\r/g, ''))
 
     console.log('ofbuscate = ', res.data);
 
